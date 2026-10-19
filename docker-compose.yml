@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: cyberpsyche_db
+    environment:
+      POSTGRES_USER: cyberpsyche_user
+      POSTGRES_PASSWORD: cyberpsyche_password
+      POSTGRES_DB: cyberpsyche_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cyberpsyche_user -d cyberpsyche_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: cyberpsyche_backend
+    environment:
+      DATABASE_URL: postgresql+psycopg://cyberpsyche_user:cyberpsyche_password@db:5432/cyberpsyche_db
+      SECRET_KEY: dev_secret_key_change_in_production
+      CSRF_SECRET: dev_csrf_secret_change_in_production
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  postgres_data:

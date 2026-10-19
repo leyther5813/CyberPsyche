@@ -1,0 +1,74 @@
+{
+  "scenario_id": "SOC-URG-MAL-01",
+  "family_id": "FAM-URG-SOC-09",
+  "phase_pool": "baseline",
+  "context": "social_messaging",
+  "channel": "chat",
+  "persona": "chat user (fictional)",
+  "truth": "malicious",
+  "mechanisms": [
+    "urgency"
+  ],
+  "pressure": "high",
+  "difficulty": "medium",
+  "narrative": "Urgent chat claiming your cloud backup storage will be deleted in 10 minutes.",
+  "message": {
+    "sender_display": "CloudDrive Alert (+91-9443322110)",
+    "body": "CRITICAL: CloudDrive storage quota exceeded. 2.4 GB of personal photos will be PERMANENTLY DELETED in 10 minutes. Upgrade storage immediately at http://clouddrive-upgrade-now.com",
+    "attachment": ""
+  },
+  "evidence": [
+    {
+      "id": "e1",
+      "label": "Upgrade Link Domain",
+      "value": "http://clouddrive-upgrade-now.com",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e2",
+      "label": "Payment Request",
+      "value": "Requires entering credit card details on unencrypted page",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e3",
+      "label": "Service Name",
+      "value": "CloudDrive (Popular service)",
+      "signal": "trustworthy",
+      "diagnosticity": "low",
+      "official_channel": false
+    },
+    {
+      "id": "e4",
+      "label": "CloudDrive App Settings",
+      "value": "App settings shows 45 GB available of 100 GB quota.",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": true
+    }
+  ],
+  "actions": {
+    "safe": [
+      "VERIFY_INDEPENDENTLY",
+      "REPORT",
+      "IGNORE"
+    ],
+    "acceptable": [
+      "GATHER_MORE_EVIDENCE"
+    ],
+    "unsafe": [
+      "PROCEED",
+      "REPLY_TO_SENDER"
+    ]
+  },
+  "consequence_text": {
+    "safe": "You opened your CloudDrive app settings and saw plenty of free storage remaining.",
+    "unsafe": "Panic-buying storage on suspicious links leads to credit card fraud."
+  },
+  "teaching_point": "Check cloud storage quotas inside the official app settings when threatened with deletion.",
+  "transfer_group": "URG"
+}

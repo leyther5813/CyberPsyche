@@ -1,0 +1,75 @@
+{
+  "scenario_id": "SOC-REW-MAL-01",
+  "family_id": "FAM-REW-SOC-06",
+  "phase_pool": "baseline",
+  "context": "social_messaging",
+  "channel": "chat",
+  "persona": "messaging app user (fictional)",
+  "truth": "malicious",
+  "mechanisms": [
+    "reward_scarcity"
+  ],
+  "pressure": "medium",
+  "difficulty": "medium",
+  "narrative": "A hacked friend contact messages you to vote for them in a contest.",
+  "message": {
+    "sender_display": "Priya (Classmate)",
+    "body": "Hey!! I'm in the top 3 for the National Art Contest win \u20b950k prize! Can you please vote for me real quick? Click http://artcontest-vote-verify.com and log in with your account to confirm vote!",
+    "attachment": ""
+  },
+  "evidence": [
+    {
+      "id": "e1",
+      "label": "Voting Link Domain",
+      "value": "http://artcontest-vote-verify.com",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e2",
+      "label": "Credential Request",
+      "value": "Requires logging in with personal social credentials to vote",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e3",
+      "label": "Friend Profile Name",
+      "value": "Matches classmate's real profile name and photo",
+      "signal": "trustworthy",
+      "diagnosticity": "low",
+      "official_channel": false
+    },
+    {
+      "id": "e4",
+      "label": "Direct Voice Call to Priya",
+      "value": "Priya answers call and says her account was hacked 1 hour ago.",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": true
+    }
+  ],
+  "actions": {
+    "safe": [
+      "VERIFY_INDEPENDENTLY",
+      "REPORT",
+      "IGNORE"
+    ],
+    "acceptable": [
+      "GATHER_MORE_EVIDENCE",
+      "ASK_TRUSTED_PERSON"
+    ],
+    "unsafe": [
+      "PROCEED",
+      "REPLY_TO_SENDER"
+    ]
+  },
+  "consequence_text": {
+    "safe": "Calling your friend out-of-band revealed her account was compromised.",
+    "unsafe": "Entering credentials on contest voting links hands account control to hijackers."
+  },
+  "teaching_point": "Contest voting links sent from friend accounts are common social engineering vectors.",
+  "transfer_group": "REW"
+}

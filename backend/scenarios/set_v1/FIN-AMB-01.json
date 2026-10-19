@@ -1,0 +1,66 @@
+{
+  "scenario_id": "FIN-AMB-01",
+  "family_id": "FAM-AMB-FIN-08",
+  "phase_pool": "baseline",
+  "context": "finance",
+  "channel": "email",
+  "persona": "bank customer (fictional)",
+  "truth": "ambiguous",
+  "mechanisms": [
+    "authority"
+  ],
+  "pressure": "low",
+  "difficulty": "medium",
+  "narrative": "Email regarding an unexpected dividend credit payout.",
+  "message": {
+    "sender_display": "Registrar Services <disbursements@national-registry-services.net>",
+    "body": "Dividend Disbursement Notice: A dividend payment of \u20b9850 from your mutual fund holdings was processed. Please verify your mandate details on our portal.",
+    "attachment": ""
+  },
+  "evidence": [
+    {
+      "id": "e1",
+      "label": "Sender Domain",
+      "value": "national-registry-services.net",
+      "signal": "neutral",
+      "diagnosticity": "medium",
+      "official_channel": false
+    },
+    {
+      "id": "e2",
+      "label": "Payout Amount",
+      "value": "\u20b9850 (Typical quarterly dividend amount)",
+      "signal": "neutral",
+      "diagnosticity": "low",
+      "official_channel": false
+    },
+    {
+      "id": "e3",
+      "label": "Mutual Fund Asset Management Company",
+      "value": "Mutual fund portal confirms dividend declared, but list of official registrars is unconfirmed.",
+      "signal": "hidden",
+      "diagnosticity": "medium",
+      "official_channel": true
+    }
+  ],
+  "actions": {
+    "safe": [
+      "VERIFY_INDEPENDENTLY",
+      "GATHER_MORE_EVIDENCE",
+      "ASK_TRUSTED_PERSON"
+    ],
+    "acceptable": [
+      "UNSURE"
+    ],
+    "unsafe": [
+      "PROCEED",
+      "REPLY_TO_SENDER"
+    ]
+  },
+  "consequence_text": {
+    "safe": "You verified dividend payouts directly with your mutual fund manager before clicking links.",
+    "unsafe": "Proceeding without verifying dividend registrars can lead to phishing."
+  },
+  "teaching_point": "Verify financial disbursements with your primary asset manager before taking online action.",
+  "transfer_group": "AUTH"
+}

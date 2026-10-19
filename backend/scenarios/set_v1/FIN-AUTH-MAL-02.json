@@ -1,0 +1,74 @@
+{
+  "scenario_id": "FIN-AUTH-MAL-02",
+  "family_id": "FAM-AUTH-FIN-07",
+  "phase_pool": "retest",
+  "context": "finance",
+  "channel": "chat",
+  "persona": "bank customer (fictional)",
+  "truth": "malicious",
+  "mechanisms": [
+    "authority"
+  ],
+  "pressure": "medium",
+  "difficulty": "medium",
+  "narrative": "Message claiming to be Central Bank Insurance Officer.",
+  "message": {
+    "sender_display": "RBI-ALERT (+91-9665544332)",
+    "body": "Central Bank Safety Regulation: Your deposit insurance compliance needs renewal. Submit account confirmation at http://deposit-safety-verify.net",
+    "attachment": ""
+  },
+  "evidence": [
+    {
+      "id": "e1",
+      "label": "Website Link",
+      "value": "http://deposit-safety-verify.net",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e2",
+      "label": "Regulatory Claim",
+      "value": "Claims RBI requires individual deposit safety verification",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e3",
+      "label": "Regulatory Terms",
+      "value": "Uses official banking terms",
+      "signal": "trustworthy",
+      "diagnosticity": "low",
+      "official_channel": false
+    },
+    {
+      "id": "e4",
+      "label": "RBI Official Advisory Site",
+      "value": "RBI advisory explicitly states central bank never contacts individuals for deposit verification.",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": true
+    }
+  ],
+  "actions": {
+    "safe": [
+      "VERIFY_INDEPENDENTLY",
+      "REPORT",
+      "IGNORE"
+    ],
+    "acceptable": [
+      "GATHER_MORE_EVIDENCE"
+    ],
+    "unsafe": [
+      "PROCEED",
+      "REPLY_TO_SENDER"
+    ]
+  },
+  "consequence_text": {
+    "safe": "You checked official RBI advisories and confirmed central banks do not request individual account verification.",
+    "unsafe": "Submitting data on fake regulator sites compromises financial credentials."
+  },
+  "teaching_point": "Central banks and financial regulators do not contact individual customers for account renewals.",
+  "transfer_group": "AUTH"
+}

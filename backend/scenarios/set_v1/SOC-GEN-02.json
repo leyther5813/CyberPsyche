@@ -1,0 +1,65 @@
+{
+  "scenario_id": "SOC-GEN-02",
+  "family_id": "FAM-GEN-FIN-10",
+  "phase_pool": "retest",
+  "context": "social_messaging",
+  "channel": "chat",
+  "persona": "chat user (fictional)",
+  "truth": "genuine",
+  "mechanisms": [
+    "authority"
+  ],
+  "pressure": "low",
+  "difficulty": "low",
+  "narrative": "Group admin sharing a scheduled study group zoom link.",
+  "message": {
+    "sender_display": "Study Group Admin (Classmate)",
+    "body": "Hey guys! Reminder: Study session starts at 5 PM on our usual Zoom link. Topic: Operating Systems Chapter 4.",
+    "attachment": ""
+  },
+  "evidence": [
+    {
+      "id": "e1",
+      "label": "Sender Contact",
+      "value": "Classmate phone number in group chat",
+      "signal": "trustworthy",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e2",
+      "label": "Zoom Meeting ID",
+      "value": "Matches regular class recurring meeting ID",
+      "signal": "trustworthy",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e3",
+      "label": "Course Syllabus Calendar",
+      "value": "Syllabus schedules OS Chapter 4 review for today.",
+      "signal": "trustworthy",
+      "diagnosticity": "high",
+      "official_channel": true
+    }
+  ],
+  "actions": {
+    "safe": [
+      "VERIFY_INDEPENDENTLY",
+      "PROCEED"
+    ],
+    "acceptable": [
+      "GATHER_MORE_EVIDENCE"
+    ],
+    "unsafe": [
+      "REPORT",
+      "IGNORE"
+    ]
+  },
+  "consequence_text": {
+    "safe": "You joined the study session using your regular class link.",
+    "unsafe": "Ignoring legitimate study group messages leads to missed peer review."
+  },
+  "teaching_point": "Routine study group reminders matching class schedules are genuine.",
+  "transfer_group": "AUTH"
+}

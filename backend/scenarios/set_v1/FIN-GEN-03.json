@@ -1,0 +1,65 @@
+{
+  "scenario_id": "FIN-GEN-03",
+  "family_id": "FAM-GEN-FIN-10",
+  "phase_pool": "baseline",
+  "context": "finance",
+  "channel": "email",
+  "persona": "bank customer (fictional)",
+  "truth": "genuine",
+  "mechanisms": [
+    "authority"
+  ],
+  "pressure": "low",
+  "difficulty": "low",
+  "narrative": "Annual bank terms & conditions privacy policy update.",
+  "message": {
+    "sender_display": "Apex Bank Privacy <privacy@apexbank.com>",
+    "body": "Notice of Privacy Policy Update: We updated our privacy policy in accordance with regulations. View the updated terms on www.apexbank.com/privacy",
+    "attachment": ""
+  },
+  "evidence": [
+    {
+      "id": "e1",
+      "label": "Sender Domain",
+      "value": "apexbank.com",
+      "signal": "trustworthy",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e2",
+      "label": "Policy Link",
+      "value": "https://www.apexbank.com/privacy",
+      "signal": "trustworthy",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e3",
+      "label": "Official Bank Homepage",
+      "value": "Homepage footer links to identical privacy document.",
+      "signal": "trustworthy",
+      "diagnosticity": "high",
+      "official_channel": true
+    }
+  ],
+  "actions": {
+    "safe": [
+      "VERIFY_INDEPENDENTLY",
+      "PROCEED"
+    ],
+    "acceptable": [
+      "GATHER_MORE_EVIDENCE"
+    ],
+    "unsafe": [
+      "REPORT",
+      "IGNORE"
+    ]
+  },
+  "consequence_text": {
+    "safe": "You verified the privacy terms on the bank's official website.",
+    "unsafe": "Reporting valid privacy updates creates unnecessary support tickets."
+  },
+  "teaching_point": "Privacy updates pointing to main corporate domains are authentic.",
+  "transfer_group": "AUTH"
+}

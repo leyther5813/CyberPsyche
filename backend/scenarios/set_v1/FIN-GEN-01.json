@@ -1,0 +1,65 @@
+{
+  "scenario_id": "FIN-GEN-01",
+  "family_id": "FAM-GEN-FIN-05",
+  "phase_pool": "baseline",
+  "context": "finance",
+  "channel": "email",
+  "persona": "bank customer (fictional)",
+  "truth": "genuine",
+  "mechanisms": [
+    "authority"
+  ],
+  "pressure": "low",
+  "difficulty": "medium",
+  "narrative": "Monthly credit card e-statement notification.",
+  "message": {
+    "sender_display": "Apex Bank Statements <estatements@apexbank.com>",
+    "body": "Dear Customer, your credit card e-statement for September 2026 is now available. Log in to your Apex Bank mobile app or web portal to view your statement.",
+    "attachment": ""
+  },
+  "evidence": [
+    {
+      "id": "e1",
+      "label": "Sender Domain",
+      "value": "apexbank.com (Official domain)",
+      "signal": "trustworthy",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e2",
+      "label": "Instructions",
+      "value": "Asks user to log in via official app/site (no links or attachments)",
+      "signal": "trustworthy",
+      "diagnosticity": "medium",
+      "official_channel": false
+    },
+    {
+      "id": "e3",
+      "label": "Apex Bank Mobile App",
+      "value": "Mobile app e-statement section displays matching September statement.",
+      "signal": "trustworthy",
+      "diagnosticity": "high",
+      "official_channel": true
+    }
+  ],
+  "actions": {
+    "safe": [
+      "VERIFY_INDEPENDENTLY",
+      "PROCEED"
+    ],
+    "acceptable": [
+      "GATHER_MORE_EVIDENCE"
+    ],
+    "unsafe": [
+      "REPORT",
+      "IGNORE"
+    ]
+  },
+  "consequence_text": {
+    "safe": "You opened your official bank app and accessed your statement securely.",
+    "unsafe": "Reporting legitimate e-statement notifications causes unnecessary alarm."
+  },
+  "teaching_point": "Routine statement notifications directing users to official apps are safe.",
+  "transfer_group": "AUTH"
+}

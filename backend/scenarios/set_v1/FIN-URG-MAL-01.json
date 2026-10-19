@@ -1,0 +1,74 @@
+{
+  "scenario_id": "FIN-URG-MAL-01",
+  "family_id": "FAM-URG-FIN-04",
+  "phase_pool": "baseline",
+  "context": "finance",
+  "channel": "chat",
+  "persona": "mobile banking user (fictional)",
+  "truth": "malicious",
+  "mechanisms": [
+    "urgency"
+  ],
+  "pressure": "high",
+  "difficulty": "high",
+  "narrative": "SMS warning about an immediate account suspension.",
+  "message": {
+    "sender_display": "PAY-ALERT (+91-9123456789)",
+    "body": "CRITICAL: Your PayQuick UPI account is flagged for non-compliance. Click http://payquick-verify-kyc.info to update KYC within 10 minutes or your account will be frozen.",
+    "attachment": ""
+  },
+  "evidence": [
+    {
+      "id": "e1",
+      "label": "Domain URL",
+      "value": "http://payquick-verify-kyc.info",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e2",
+      "label": "Protocol Used",
+      "value": "Unencrypted HTTP link (http://)",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e3",
+      "label": "SMS Header",
+      "value": "Uses PAY-ALERT sender ID tag",
+      "signal": "trustworthy",
+      "diagnosticity": "low",
+      "official_channel": false
+    },
+    {
+      "id": "e4",
+      "label": "PayQuick Official App",
+      "value": "KYC status shows fully verified; official support notes KYC updates are only done inside the official app.",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": true
+    }
+  ],
+  "actions": {
+    "safe": [
+      "VERIFY_INDEPENDENTLY",
+      "REPORT",
+      "IGNORE"
+    ],
+    "acceptable": [
+      "GATHER_MORE_EVIDENCE"
+    ],
+    "unsafe": [
+      "PROCEED",
+      "REPLY_TO_SENDER"
+    ]
+  },
+  "consequence_text": {
+    "safe": "You checked your KYC status directly inside the official app and confirmed your account was fully compliant.",
+    "unsafe": "Following unencrypted external links for KYC update leads to financial credential theft (simulated)."
+  },
+  "teaching_point": "Financial institutions never require KYC updates over unencrypted external HTTP links.",
+  "transfer_group": "URG"
+}

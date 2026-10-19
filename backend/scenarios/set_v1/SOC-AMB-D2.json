@@ -1,0 +1,66 @@
+{
+  "scenario_id": "SOC-AMB-D2",
+  "family_id": "FAM-AMB-FIN-08",
+  "phase_pool": "delayed",
+  "context": "social_messaging",
+  "channel": "chat",
+  "persona": "messaging user (fictional)",
+  "truth": "ambiguous",
+  "mechanisms": [
+    "authority"
+  ],
+  "pressure": "low",
+  "difficulty": "medium",
+  "narrative": "Delayed retest: Alumni network survey request.",
+  "message": {
+    "sender_display": "Alumni Network Admin (+91-9223344556)",
+    "body": "Hello Alumni! We are compiling the 2026 Placement Benchmark Report. Fill out the career survey at http://alumni-career-survey.org",
+    "attachment": ""
+  },
+  "evidence": [
+    {
+      "id": "e1",
+      "label": "Survey Link",
+      "value": "http://alumni-career-survey.org",
+      "signal": "neutral",
+      "diagnosticity": "medium",
+      "official_channel": false
+    },
+    {
+      "id": "e2",
+      "label": "Sender Contact",
+      "value": "Number listed as Alumni Admin",
+      "signal": "neutral",
+      "diagnosticity": "low",
+      "official_channel": false
+    },
+    {
+      "id": "e3",
+      "label": "Official Alumni Portal",
+      "value": "Official portal has not posted official survey announcement yet.",
+      "signal": "hidden",
+      "diagnosticity": "medium",
+      "official_channel": true
+    }
+  ],
+  "actions": {
+    "safe": [
+      "VERIFY_INDEPENDENTLY",
+      "GATHER_MORE_EVIDENCE",
+      "ASK_TRUSTED_PERSON"
+    ],
+    "acceptable": [
+      "UNSURE"
+    ],
+    "unsafe": [
+      "PROCEED",
+      "REPLY_TO_SENDER"
+    ]
+  },
+  "consequence_text": {
+    "safe": "You checked the official alumni portal before submitting career details.",
+    "unsafe": "Submitting details on unverified survey links carries data privacy risks."
+  },
+  "teaching_point": "Delayed retention: Verify alumni career surveys on official college portals.",
+  "transfer_group": "AUTH"
+}

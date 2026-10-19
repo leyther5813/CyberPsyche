@@ -1,0 +1,74 @@
+{
+  "scenario_id": "EDU-AUTH-MAL-01",
+  "family_id": "FAM-AUTH-FIN-07",
+  "phase_pool": "transfer",
+  "context": "education_career",
+  "channel": "email",
+  "persona": "researcher (fictional)",
+  "truth": "malicious",
+  "mechanisms": [
+    "authority"
+  ],
+  "pressure": "medium",
+  "difficulty": "medium",
+  "narrative": "Email claiming to be University Ethics Board requiring protocol audit.",
+  "message": {
+    "sender_display": "IRB Ethics Board <irb@ethics-compliance-portal.org>",
+    "body": "Mandatory IRB Compliance Audit: Your active study protocol requires re-authorization. Upload study data at http://irb-audit-upload.org",
+    "attachment": ""
+  },
+  "evidence": [
+    {
+      "id": "e1",
+      "label": "Sender Domain",
+      "value": "ethics-compliance-portal.org",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e2",
+      "label": "Upload Link",
+      "value": "http://irb-audit-upload.org",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e3",
+      "label": "Protocol Reference",
+      "value": "Refers to active research study",
+      "signal": "trustworthy",
+      "diagnosticity": "low",
+      "official_channel": false
+    },
+    {
+      "id": "e4",
+      "label": "University Research Ethics Portal",
+      "value": "University IRB site shows all protocol approvals active with no audit required.",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": true
+    }
+  ],
+  "actions": {
+    "safe": [
+      "VERIFY_INDEPENDENTLY",
+      "REPORT",
+      "IGNORE"
+    ],
+    "acceptable": [
+      "GATHER_MORE_EVIDENCE"
+    ],
+    "unsafe": [
+      "PROCEED",
+      "REPLY_TO_SENDER"
+    ]
+  },
+  "consequence_text": {
+    "safe": "You verified protocol status on the university IRB portal and confirmed no audit was pending.",
+    "unsafe": "Uploading data to external audit links exposes research data to unauthorized parties."
+  },
+  "teaching_point": "Transfer strategy: Verify institutional compliance audits via internal university portals.",
+  "transfer_group": "AUTH"
+}

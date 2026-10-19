@@ -1,0 +1,75 @@
+{
+  "scenario_id": "SOC-REW-MAL-02",
+  "family_id": "FAM-REW-SOC-06",
+  "phase_pool": "retest",
+  "context": "social_messaging",
+  "channel": "chat",
+  "persona": "messaging app user (fictional)",
+  "truth": "malicious",
+  "mechanisms": [
+    "reward_scarcity"
+  ],
+  "pressure": "medium",
+  "difficulty": "medium",
+  "narrative": "A friend sends a link for a free gift card promotion.",
+  "message": {
+    "sender_display": "Rohan (College Friend)",
+    "body": "Bro check this out! StoreX is giving free \u20b92,000 gift vouchers for anniversary! Got mine in 2 mins: http://storex-free-voucher.info",
+    "attachment": ""
+  },
+  "evidence": [
+    {
+      "id": "e1",
+      "label": "Voucher Link Domain",
+      "value": "http://storex-free-voucher.info",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e2",
+      "label": "Unusual Messaging Tone",
+      "value": "Rohan rarely sends promotional links",
+      "signal": "suspicious",
+      "diagnosticity": "medium",
+      "official_channel": false
+    },
+    {
+      "id": "e3",
+      "label": "Sender Contact Name",
+      "value": "Saved contact Rohan",
+      "signal": "trustworthy",
+      "diagnosticity": "low",
+      "official_channel": false
+    },
+    {
+      "id": "e4",
+      "label": "StoreX Official Website",
+      "value": "StoreX.com official site states no free voucher promo exists; warns of phishing link.",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": true
+    }
+  ],
+  "actions": {
+    "safe": [
+      "VERIFY_INDEPENDENTLY",
+      "REPORT",
+      "IGNORE"
+    ],
+    "acceptable": [
+      "GATHER_MORE_EVIDENCE",
+      "ASK_TRUSTED_PERSON"
+    ],
+    "unsafe": [
+      "PROCEED",
+      "REPLY_TO_SENDER"
+    ]
+  },
+  "consequence_text": {
+    "safe": "Checking StoreX's official website confirmed the voucher link was a scam.",
+    "unsafe": "Clicking gift card links spreads malware and steals personal data."
+  },
+  "teaching_point": "Free voucher claims sent via chat should be verified against official brand websites.",
+  "transfer_group": "REW"
+}

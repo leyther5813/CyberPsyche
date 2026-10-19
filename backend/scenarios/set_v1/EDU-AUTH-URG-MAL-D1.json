@@ -1,0 +1,75 @@
+{
+  "scenario_id": "EDU-AUTH-URG-MAL-D1",
+  "family_id": "FAM-AUTHURG-EDU-01",
+  "phase_pool": "delayed",
+  "context": "education_career",
+  "channel": "email",
+  "persona": "college student (fictional)",
+  "truth": "malicious",
+  "mechanisms": [
+    "authority",
+    "urgency"
+  ],
+  "pressure": "high",
+  "difficulty": "high",
+  "narrative": "Delayed retest: Thesis submission clearance deadline threat.",
+  "message": {
+    "sender_display": "Graduate School Office <clearance@grad-school-admin.net>",
+    "body": "URGENT: Thesis approval document pending digital signature. Upload signed PDF within 30 minutes at http://grad-thesis-sign.net or graduation will be postponed.",
+    "attachment": ""
+  },
+  "evidence": [
+    {
+      "id": "e1",
+      "label": "Domain URL",
+      "value": "http://grad-thesis-sign.net",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e2",
+      "label": "Sender Address",
+      "value": "clearance@grad-school-admin.net",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e3",
+      "label": "Degree Name",
+      "value": "Master of Science in Computer Science",
+      "signal": "trustworthy",
+      "diagnosticity": "low",
+      "official_channel": false
+    },
+    {
+      "id": "e4",
+      "label": "Graduate School Portal",
+      "value": "Portal shows thesis status fully approved and signed.",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": true
+    }
+  ],
+  "actions": {
+    "safe": [
+      "VERIFY_INDEPENDENTLY",
+      "REPORT",
+      "IGNORE"
+    ],
+    "acceptable": [
+      "GATHER_MORE_EVIDENCE"
+    ],
+    "unsafe": [
+      "PROCEED",
+      "REPLY_TO_SENDER"
+    ]
+  },
+  "consequence_text": {
+    "safe": "You verified thesis clearance on the official portal.",
+    "unsafe": "Submitting files on external links compromises graduate credentials."
+  },
+  "teaching_point": "Delayed retention: Always verify graduation clearance directly on university portals.",
+  "transfer_group": "AUTH_URG"
+}

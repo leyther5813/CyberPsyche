@@ -1,0 +1,74 @@
+{
+  "scenario_id": "FIN-URG-MAL-02",
+  "family_id": "FAM-URG-FIN-04",
+  "phase_pool": "retest",
+  "context": "finance",
+  "channel": "chat",
+  "persona": "mobile banking user (fictional)",
+  "truth": "malicious",
+  "mechanisms": [
+    "urgency"
+  ],
+  "pressure": "high",
+  "difficulty": "high",
+  "narrative": "SMS warning about an unauthorized loan debit.",
+  "message": {
+    "sender_display": "BANK-MSG (+91-9887766554)",
+    "body": "URGENT: Auto-debit of \u20b949,999 for EMI Loan #9941 is scheduled in 15 mins. If you did NOT authorize this, cancel immediately at http://apex-debit-cancel.com",
+    "attachment": ""
+  },
+  "evidence": [
+    {
+      "id": "e1",
+      "label": "Domain Name",
+      "value": "apex-debit-cancel.com",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e2",
+      "label": "Sender Number",
+      "value": "Standard 10-digit mobile number",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e3",
+      "label": "Loan Reference Number",
+      "value": "Loan #9941 listed",
+      "signal": "trustworthy",
+      "diagnosticity": "low",
+      "official_channel": false
+    },
+    {
+      "id": "e4",
+      "label": "Apex Bank Customer Service",
+      "value": "Customer care confirms no loan #9941 exists on your account.",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": true
+    }
+  ],
+  "actions": {
+    "safe": [
+      "VERIFY_INDEPENDENTLY",
+      "REPORT",
+      "IGNORE"
+    ],
+    "acceptable": [
+      "GATHER_MORE_EVIDENCE"
+    ],
+    "unsafe": [
+      "PROCEED",
+      "REPLY_TO_SENDER"
+    ]
+  },
+  "consequence_text": {
+    "safe": "You called your bank customer service out-of-band and confirmed no loan debit existed.",
+    "unsafe": "Clicking panic-inducing cancellation links delivers your banking login to attackers."
+  },
+  "teaching_point": "Fake cancellation warnings exploit panic to bypass independent verification.",
+  "transfer_group": "URG"
+}

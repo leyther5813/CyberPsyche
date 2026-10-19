@@ -1,0 +1,66 @@
+{
+  "scenario_id": "FIN-AMB-02",
+  "family_id": "FAM-AMB-FIN-08",
+  "phase_pool": "retest",
+  "context": "finance",
+  "channel": "email",
+  "persona": "bank customer (fictional)",
+  "truth": "ambiguous",
+  "mechanisms": [
+    "authority"
+  ],
+  "pressure": "low",
+  "difficulty": "medium",
+  "narrative": "Email regarding an insurance policy bonus credit.",
+  "message": {
+    "sender_display": "Policy Admin <bonus@insurance-disbursement.org>",
+    "body": "Annual Loyalty Bonus: Your life insurance policy accrued a bonus of \u20b94,200. Check your eligibility status on our policy portal.",
+    "attachment": ""
+  },
+  "evidence": [
+    {
+      "id": "e1",
+      "label": "Sender Address",
+      "value": "bonus@insurance-disbursement.org",
+      "signal": "neutral",
+      "diagnosticity": "medium",
+      "official_channel": false
+    },
+    {
+      "id": "e2",
+      "label": "Policy Number Format",
+      "value": "Format matches general policy numbering",
+      "signal": "neutral",
+      "diagnosticity": "low",
+      "official_channel": false
+    },
+    {
+      "id": "e3",
+      "label": "Insurance Agent Hotline",
+      "value": "Agent advises checking bonus directly in the insurer's official mobile app.",
+      "signal": "hidden",
+      "diagnosticity": "medium",
+      "official_channel": true
+    }
+  ],
+  "actions": {
+    "safe": [
+      "VERIFY_INDEPENDENTLY",
+      "GATHER_MORE_EVIDENCE",
+      "ASK_TRUSTED_PERSON"
+    ],
+    "acceptable": [
+      "UNSURE"
+    ],
+    "unsafe": [
+      "PROCEED",
+      "REPLY_TO_SENDER"
+    ]
+  },
+  "consequence_text": {
+    "safe": "You checked your bonus status on your insurer's official mobile app.",
+    "unsafe": "Rushing into unverified insurance claims carries phishing risks."
+  },
+  "teaching_point": "Check policy bonuses inside official app portals.",
+  "transfer_group": "AUTH"
+}

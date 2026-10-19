@@ -1,0 +1,65 @@
+{
+  "scenario_id": "EDU-AUTH-GEN-02",
+  "family_id": "FAM-AUTH-EDU-02",
+  "phase_pool": "retest",
+  "context": "education_career",
+  "channel": "email",
+  "persona": "college student (fictional)",
+  "truth": "genuine",
+  "mechanisms": [
+    "authority"
+  ],
+  "pressure": "low",
+  "difficulty": "low",
+  "narrative": "Course Coordinator sends an end-semester feedback survey notice.",
+  "message": {
+    "sender_display": "Academic Evaluation <evaluations@college.edu.in>",
+    "body": "The course feedback portal for CS301 is now open until next week. Please complete your evaluation on the student dashboard.",
+    "attachment": ""
+  },
+  "evidence": [
+    {
+      "id": "e1",
+      "label": "Sender Domain",
+      "value": "evaluations@college.edu.in",
+      "signal": "trustworthy",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e2",
+      "label": "Survey Link Destination",
+      "value": "Directs to https://student.college.edu.in/eval",
+      "signal": "trustworthy",
+      "diagnosticity": "medium",
+      "official_channel": false
+    },
+    {
+      "id": "e3",
+      "label": "Official Student Dashboard",
+      "value": "Dashboard displays active CS301 feedback banner.",
+      "signal": "trustworthy",
+      "diagnosticity": "high",
+      "official_channel": true
+    }
+  ],
+  "actions": {
+    "safe": [
+      "VERIFY_INDEPENDENTLY",
+      "PROCEED"
+    ],
+    "acceptable": [
+      "GATHER_MORE_EVIDENCE"
+    ],
+    "unsafe": [
+      "REPORT",
+      "IGNORE"
+    ]
+  },
+  "consequence_text": {
+    "safe": "You confirmed the survey on your dashboard and submitted your course feedback safely.",
+    "unsafe": "Reporting valid official notifications leads to over-caution and missed administrative tasks."
+  },
+  "teaching_point": "Verify authentic notices via your official dashboard without suspicion bias.",
+  "transfer_group": "AUTH"
+}

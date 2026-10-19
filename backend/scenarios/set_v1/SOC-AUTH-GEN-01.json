@@ -1,0 +1,65 @@
+{
+  "scenario_id": "SOC-AUTH-GEN-01",
+  "family_id": "FAM-AUTH-EDU-02",
+  "phase_pool": "transfer",
+  "context": "social_messaging",
+  "channel": "chat",
+  "persona": "community member (fictional)",
+  "truth": "genuine",
+  "mechanisms": [
+    "authority"
+  ],
+  "pressure": "low",
+  "difficulty": "low",
+  "narrative": "Resident Welfare Association Secretary sends a meeting reminder on WhatsApp.",
+  "message": {
+    "sender_display": "RWA Secretary (Verified Group Admin)",
+    "body": "Good evening all. Reminder: Annual General Meeting this Sunday at 10 AM in the Clubhouse. Agenda document is posted on the notice board.",
+    "attachment": ""
+  },
+  "evidence": [
+    {
+      "id": "e1",
+      "label": "Sender Contact",
+      "value": "Saved contact of elected RWA Secretary",
+      "signal": "trustworthy",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e2",
+      "label": "Message Content",
+      "value": "Informational reminder; asks for no codes or payments",
+      "signal": "neutral",
+      "diagnosticity": "medium",
+      "official_channel": false
+    },
+    {
+      "id": "e3",
+      "label": "Official Society Notice Board",
+      "value": "Physical notice board and society app show identical AGM schedule.",
+      "signal": "trustworthy",
+      "diagnosticity": "high",
+      "official_channel": true
+    }
+  ],
+  "actions": {
+    "safe": [
+      "VERIFY_INDEPENDENTLY",
+      "PROCEED"
+    ],
+    "acceptable": [
+      "GATHER_MORE_EVIDENCE"
+    ],
+    "unsafe": [
+      "REPORT",
+      "IGNORE"
+    ]
+  },
+  "consequence_text": {
+    "safe": "You checked the society notice board and confirmed the upcoming meeting details.",
+    "unsafe": "Rejecting authentic community reminders creates needless paranoia."
+  },
+  "teaching_point": "Informational messages from known contacts without sensitive requests are genuine.",
+  "transfer_group": "AUTH"
+}

@@ -1,0 +1,65 @@
+{
+  "scenario_id": "FIN-GEN-D2",
+  "family_id": "FAM-GEN-FIN-05",
+  "phase_pool": "delayed",
+  "context": "finance",
+  "channel": "email",
+  "persona": "bank customer (fictional)",
+  "truth": "genuine",
+  "mechanisms": [
+    "authority"
+  ],
+  "pressure": "low",
+  "difficulty": "low",
+  "narrative": "Delayed retest: Tax deduction certificate notice.",
+  "message": {
+    "sender_display": "Apex Bank Tax Desk <tax-desk@apexbank.com>",
+    "body": "Your Form 16A tax deduction certificate for Q2 is available on your netbanking account.",
+    "attachment": ""
+  },
+  "evidence": [
+    {
+      "id": "e1",
+      "label": "Sender Address",
+      "value": "tax-desk@apexbank.com",
+      "signal": "trustworthy",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e2",
+      "label": "Channel Direction",
+      "value": "Directs user to netbanking portal",
+      "signal": "trustworthy",
+      "diagnosticity": "medium",
+      "official_channel": false
+    },
+    {
+      "id": "e3",
+      "label": "Official Netbanking Tax Section",
+      "value": "Netbanking portal shows Q2 Form 16A ready.",
+      "signal": "trustworthy",
+      "diagnosticity": "high",
+      "official_channel": true
+    }
+  ],
+  "actions": {
+    "safe": [
+      "VERIFY_INDEPENDENTLY",
+      "PROCEED"
+    ],
+    "acceptable": [
+      "GATHER_MORE_EVIDENCE"
+    ],
+    "unsafe": [
+      "REPORT",
+      "IGNORE"
+    ]
+  },
+  "consequence_text": {
+    "safe": "You accessed your tax certificate directly via official netbanking.",
+    "unsafe": "Reporting valid tax notices creates administrative confusion."
+  },
+  "teaching_point": "Delayed retention: Netbanking tax notices pointing to official portals are safe.",
+  "transfer_group": "AUTH"
+}

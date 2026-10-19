@@ -1,0 +1,74 @@
+{
+  "scenario_id": "FIN-URG-MAL-03",
+  "family_id": "FAM-URG-SOC-09",
+  "phase_pool": "transfer",
+  "context": "finance",
+  "channel": "email",
+  "persona": "banking customer (fictional)",
+  "truth": "malicious",
+  "mechanisms": [
+    "urgency"
+  ],
+  "pressure": "high",
+  "difficulty": "medium",
+  "narrative": "Email claiming urgent utility bill payment required to prevent immediate disconnection.",
+  "message": {
+    "sender_display": "Power Grid Services <billing@power-disconnection-alert.org>",
+    "body": "IMMEDIATE DISCONNECTION NOTICE: Electricity connection will be cut at 8:00 PM due to pending bill of \u20b91,820. Pay immediately at http://powerbill-quickpay.org",
+    "attachment": ""
+  },
+  "evidence": [
+    {
+      "id": "e1",
+      "label": "Sender Domain",
+      "value": "power-disconnection-alert.org",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e2",
+      "label": "Payment URL",
+      "value": "http://powerbill-quickpay.org",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e3",
+      "label": "Consumer Account Number",
+      "value": "Account #7741 listed",
+      "signal": "trustworthy",
+      "diagnosticity": "low",
+      "official_channel": false
+    },
+    {
+      "id": "e4",
+      "label": "Official Electricity Utility Portal",
+      "value": "Utility portal shows zero outstanding bill; status fully paid.",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": true
+    }
+  ],
+  "actions": {
+    "safe": [
+      "VERIFY_INDEPENDENTLY",
+      "REPORT",
+      "IGNORE"
+    ],
+    "acceptable": [
+      "GATHER_MORE_EVIDENCE"
+    ],
+    "unsafe": [
+      "PROCEED",
+      "REPLY_TO_SENDER"
+    ]
+  },
+  "consequence_text": {
+    "safe": "You checked your utility provider's official portal and confirmed your bill was paid.",
+    "unsafe": "Paying bills via suspicious link leads to financial theft."
+  },
+  "teaching_point": "Verify utility bill alerts on the official provider website before making payments.",
+  "transfer_group": "URG"
+}

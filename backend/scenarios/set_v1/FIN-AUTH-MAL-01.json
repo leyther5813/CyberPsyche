@@ -1,0 +1,74 @@
+{
+  "scenario_id": "FIN-AUTH-MAL-01",
+  "family_id": "FAM-AUTH-FIN-07",
+  "phase_pool": "baseline",
+  "context": "finance",
+  "channel": "chat",
+  "persona": "bank customer (fictional)",
+  "truth": "malicious",
+  "mechanisms": [
+    "authority"
+  ],
+  "pressure": "medium",
+  "difficulty": "medium",
+  "narrative": "A chat message claims to be from Income Tax Department regarding refund audit.",
+  "message": {
+    "sender_display": "IT-TAX-DEPT (+91-9776655443)",
+    "body": "Income Tax Refund Notice: Tax refund of \u20b912,400 for Assessment Year 2025-26 approved. Verify bank account details at http://incometax-refund-portal.org",
+    "attachment": ""
+  },
+  "evidence": [
+    {
+      "id": "e1",
+      "label": "Domain URL",
+      "value": "http://incometax-refund-portal.org",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e2",
+      "label": "SMS Sender Number",
+      "value": "Unregistered 10-digit number",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e3",
+      "label": "Assessment Year",
+      "value": "Correct AY 2025-26 format",
+      "signal": "trustworthy",
+      "diagnosticity": "low",
+      "official_channel": false
+    },
+    {
+      "id": "e4",
+      "label": "Official e-Filing Portal (incometax.gov.in)",
+      "value": "Official portal refund status shows 'No pending refund verification'.",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": true
+    }
+  ],
+  "actions": {
+    "safe": [
+      "VERIFY_INDEPENDENTLY",
+      "REPORT",
+      "IGNORE"
+    ],
+    "acceptable": [
+      "GATHER_MORE_EVIDENCE"
+    ],
+    "unsafe": [
+      "PROCEED",
+      "REPLY_TO_SENDER"
+    ]
+  },
+  "consequence_text": {
+    "safe": "Checking the official government portal confirmed no tax refund verification was pending.",
+    "unsafe": "Submitting bank details on fake tax portals leads to credential theft."
+  },
+  "teaching_point": "Government tax refunds are processed exclusively on government .gov.in portals.",
+  "transfer_group": "AUTH"
+}

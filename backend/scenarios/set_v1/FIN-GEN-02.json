@@ -1,0 +1,65 @@
+{
+  "scenario_id": "FIN-GEN-02",
+  "family_id": "FAM-GEN-FIN-05",
+  "phase_pool": "retest",
+  "context": "finance",
+  "channel": "email",
+  "persona": "bank customer (fictional)",
+  "truth": "genuine",
+  "mechanisms": [
+    "authority"
+  ],
+  "pressure": "low",
+  "difficulty": "medium",
+  "narrative": "Annual interest rate disclosure update notice.",
+  "message": {
+    "sender_display": "Apex Bank Compliance <compliance@apexbank.com>",
+    "body": "Notice of revised savings interest rates effective October 1. View the policy table at https://www.apexbank.com/rates. No action is required.",
+    "attachment": ""
+  },
+  "evidence": [
+    {
+      "id": "e1",
+      "label": "Sender Address",
+      "value": "compliance@apexbank.com",
+      "signal": "trustworthy",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e2",
+      "label": "URL Host",
+      "value": "https://www.apexbank.com",
+      "signal": "trustworthy",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e3",
+      "label": "Official Bank Homepage",
+      "value": "Rates page on apexbank.com matches the disclosure table.",
+      "signal": "trustworthy",
+      "diagnosticity": "high",
+      "official_channel": true
+    }
+  ],
+  "actions": {
+    "safe": [
+      "VERIFY_INDEPENDENTLY",
+      "PROCEED"
+    ],
+    "acceptable": [
+      "GATHER_MORE_EVIDENCE"
+    ],
+    "unsafe": [
+      "REPORT",
+      "IGNORE"
+    ]
+  },
+  "consequence_text": {
+    "safe": "You reviewed the rate update on the official bank site.",
+    "unsafe": "Ignoring official rate notices keeps you uninformed on bank terms."
+  },
+  "teaching_point": "Informational announcements pointing to the bank's root domain are genuine.",
+  "transfer_group": "AUTH"
+}

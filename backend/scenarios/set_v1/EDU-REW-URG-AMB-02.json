@@ -1,0 +1,67 @@
+{
+  "scenario_id": "EDU-REW-URG-AMB-02",
+  "family_id": "FAM-REWURG-AMB-03",
+  "phase_pool": "retest",
+  "context": "education_career",
+  "channel": "email",
+  "persona": "college student (fictional)",
+  "truth": "ambiguous",
+  "mechanisms": [
+    "reward_scarcity",
+    "urgency"
+  ],
+  "pressure": "medium",
+  "difficulty": "medium",
+  "narrative": "An email claims you won an international conference travel pass.",
+  "message": {
+    "sender_display": "TechSummit Secretariat <passes@techsummit-events.net>",
+    "body": "You have been selected for a complimentary student delegate pass to TechSummit 2026. Only 5 passes left. Confirm your registration code today.",
+    "attachment": ""
+  },
+  "evidence": [
+    {
+      "id": "e1",
+      "label": "Sender Domain",
+      "value": "techsummit-events.net",
+      "signal": "neutral",
+      "diagnosticity": "medium",
+      "official_channel": false
+    },
+    {
+      "id": "e2",
+      "label": "Conference Name",
+      "value": "TechSummit 2026 (Real annual event)",
+      "signal": "trustworthy",
+      "diagnosticity": "low",
+      "official_channel": false
+    },
+    {
+      "id": "e3",
+      "label": "Department Placement Chair",
+      "value": "Placement chair has not received formal sponsor confirmation yet.",
+      "signal": "hidden",
+      "diagnosticity": "medium",
+      "official_channel": true
+    }
+  ],
+  "actions": {
+    "safe": [
+      "VERIFY_INDEPENDENTLY",
+      "GATHER_MORE_EVIDENCE",
+      "ASK_TRUSTED_PERSON"
+    ],
+    "acceptable": [
+      "UNSURE"
+    ],
+    "unsafe": [
+      "PROCEED",
+      "REPLY_TO_SENDER"
+    ]
+  },
+  "consequence_text": {
+    "safe": "You checked with your department chair first to verify whether the sponsor was legitimate.",
+    "unsafe": "Rushing to claim unverified passes without checking official channels is unsafe in ambiguous scenarios."
+  },
+  "teaching_point": "Ambiguous opportunities require out-of-band verification before commitment.",
+  "transfer_group": "REW_URG"
+}

@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CyberPsyche Scenario Schema v1.0",
+  "type": "object",
+  "required": [
+    "scenario_id",
+    "family_id",
+    "phase_pool",
+    "context",
+    "channel",
+    "persona",
+    "truth",
+    "mechanisms",
+    "pressure",
+    "difficulty",
+    "narrative",
+    "message",
+    "evidence",
+    "actions",
+    "consequence_text",
+    "teaching_point",
+    "transfer_group"
+  ],
+  "properties": {
+    "scenario_id": {
+      "type": "string",
+      "pattern": "^[A-Z0-9_-]+$"
+    },
+    "family_id": {
+      "type": "string"
+    },
+    "phase_pool": {
+      "type": "string",
+      "enum": ["baseline", "retest", "transfer", "delayed"]
+    },
+    "context": {
+      "type": "string",
+      "enum": ["education_career", "finance", "social_messaging"]
+    },
+    "channel": {
+      "type": "string",
+      "enum": ["email", "chat"]
+    },
+    "persona": {
+      "type": "string"
+    },
+    "truth": {
+      "type": "string",
+      "enum": ["malicious", "genuine", "ambiguous"]
+    },
+    "mechanisms": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["authority", "urgency", "reward_scarcity"]
+      },
+      "minItems": 1
+    },
+    "pressure": {
+      "type": "string",
+      "enum": ["low", "medium", "high"]
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": ["low", "medium", "high"]
+    },
+    "narrative": {
+      "type": "string"
+    },
+    "message": {
+      "type": "object",
+      "required": ["sender_display", "body"],
+      "properties": {
+        "sender_display": { "type": "string" },
+        "body": { "type": "string" },
+        "attachment": { "type": "string" }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "label", "value", "signal", "diagnosticity"],
+        "properties": {
+          "id": { "type": "string" },
+          "label": { "type": "string" },
+          "value": { "type": "string" },
+          "signal": { "type": "string", "enum": ["suspicious", "neutral", "trustworthy", "hidden"] },
+          "diagnosticity": { "type": "string", "enum": ["high", "medium", "low"] },
+          "official_channel": { "type": "boolean" }
+        }
+      },
+      "minItems": 2
+    },
+    "actions": {
+      "type": "object",
+      "required": ["safe", "acceptable", "unsafe"],
+      "properties": {
+        "safe": { "type": "array", "items": { "type": "string" } },
+        "acceptable": { "type": "array", "items": { "type": "string" } },
+        "unsafe": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "consequence_text": {
+      "type": "object",
+      "required": ["safe", "unsafe"],
+      "properties": {
+        "safe": { "type": "string" },
+        "unsafe": { "type": "string" }
+      }
+    },
+    "teaching_point": {
+      "type": "string"
+    },
+    "transfer_group": {
+      "type": "string"
+    }
+  }
+}

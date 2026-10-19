@@ -1,0 +1,76 @@
+{
+  "scenario_id": "EDU-AUTH-URG-MAL-01",
+  "family_id": "FAM-AUTHURG-EDU-01",
+  "phase_pool": "baseline",
+  "context": "education_career",
+  "channel": "email",
+  "persona": "college student (fictional)",
+  "truth": "malicious",
+  "mechanisms": [
+    "authority",
+    "urgency"
+  ],
+  "pressure": "high",
+  "difficulty": "medium",
+  "narrative": "Placement coordinator emails a shortlist notice with an urgent deadline.",
+  "message": {
+    "sender_display": "Placement Officer <placements@college-career.net>",
+    "body": "Urgent: You have been shortlisted for the TechCorp internship. You must fill out the attached registration form within 20 minutes or your nomination will be cancelled.",
+    "attachment": "TechCorp_Registration_Form.pdf.exe"
+  },
+  "evidence": [
+    {
+      "id": "e1",
+      "label": "Sender Email Address",
+      "value": "placements@college-career.net",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e2",
+      "label": "Attachment Extension",
+      "value": "TechCorp_Registration_Form.pdf.exe",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e3",
+      "label": "Greeting Format",
+      "value": "Dear Student,",
+      "signal": "trustworthy",
+      "diagnosticity": "low",
+      "official_channel": false
+    },
+    {
+      "id": "e4",
+      "label": "Official Placement Portal Notice",
+      "value": "No shortlist notice published on college.edu.in portal.",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": true
+    }
+  ],
+  "actions": {
+    "safe": [
+      "VERIFY_INDEPENDENTLY",
+      "REPORT",
+      "IGNORE"
+    ],
+    "acceptable": [
+      "GATHER_MORE_EVIDENCE",
+      "ASK_TRUSTED_PERSON"
+    ],
+    "unsafe": [
+      "PROCEED",
+      "REPLY_TO_SENDER"
+    ]
+  },
+  "consequence_text": {
+    "safe": "Verifying on the official placement portal revealed no such shortlist. You avoided installing malicious executable software.",
+    "unsafe": "Opening the executable attachment would have installed malware on your system (simulated)."
+  },
+  "teaching_point": "Urgent claims from authority figures should increase your verification effort rather than rushing your decision.",
+  "transfer_group": "AUTH_URG"
+}

@@ -1,0 +1,67 @@
+{
+  "scenario_id": "EDU-REW-URG-AMB-01",
+  "family_id": "FAM-REWURG-AMB-03",
+  "phase_pool": "baseline",
+  "context": "education_career",
+  "channel": "email",
+  "persona": "college student (fictional)",
+  "truth": "ambiguous",
+  "mechanisms": [
+    "reward_scarcity",
+    "urgency"
+  ],
+  "pressure": "medium",
+  "difficulty": "medium",
+  "narrative": "An unfamiliar recruiter offers an exclusive research stipend.",
+  "message": {
+    "sender_display": "Global Ed Foundation <grants@ed-foundation-global.org>",
+    "body": "Congratulations! Your profile was nominated for a \u20b925,000 summer research micro-grant. Only 3 slots remain. Respond within 24 hours to secure your allocation.",
+    "attachment": ""
+  },
+  "evidence": [
+    {
+      "id": "e1",
+      "label": "Sender Domain",
+      "value": "ed-foundation-global.org",
+      "signal": "neutral",
+      "diagnosticity": "medium",
+      "official_channel": false
+    },
+    {
+      "id": "e2",
+      "label": "Stipend Amount",
+      "value": "\u20b925,000 (Plausible micro-grant amount)",
+      "signal": "neutral",
+      "diagnosticity": "low",
+      "official_channel": false
+    },
+    {
+      "id": "e3",
+      "label": "University Research Dean Office",
+      "value": "Dean office notes this foundation is unverified; official confirmation pending.",
+      "signal": "hidden",
+      "diagnosticity": "medium",
+      "official_channel": true
+    }
+  ],
+  "actions": {
+    "safe": [
+      "VERIFY_INDEPENDENTLY",
+      "GATHER_MORE_EVIDENCE",
+      "ASK_TRUSTED_PERSON"
+    ],
+    "acceptable": [
+      "UNSURE"
+    ],
+    "unsafe": [
+      "PROCEED",
+      "REPLY_TO_SENDER"
+    ]
+  },
+  "consequence_text": {
+    "safe": "You reached out to the Research Dean before acting, avoiding sharing details with an unverified foundation.",
+    "unsafe": "Proceeding without gathering more evidence on ambiguous offers exposes you to potential scam harvesting."
+  },
+  "teaching_point": "When encountering unverified offers with missing diagnostic clues, gather more evidence before taking action.",
+  "transfer_group": "REW_URG"
+}

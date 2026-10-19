@@ -1,0 +1,65 @@
+{
+  "scenario_id": "EDU-AUTH-GEN-01",
+  "family_id": "FAM-AUTH-EDU-02",
+  "phase_pool": "baseline",
+  "context": "education_career",
+  "channel": "email",
+  "persona": "college student (fictional)",
+  "truth": "genuine",
+  "mechanisms": [
+    "authority"
+  ],
+  "pressure": "low",
+  "difficulty": "low",
+  "narrative": "Central Library sends a routine book return notice.",
+  "message": {
+    "sender_display": "Library Desk <library@college.edu.in>",
+    "body": "Dear Student, your borrowed book 'Computer Networks 5th Ed' is due in 3 days. Please return or renew it online via the library catalog before Friday.",
+    "attachment": ""
+  },
+  "evidence": [
+    {
+      "id": "e1",
+      "label": "Sender Email Address",
+      "value": "library@college.edu.in",
+      "signal": "trustworthy",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e2",
+      "label": "Due Date",
+      "value": "3 days remaining (Standard notice)",
+      "signal": "neutral",
+      "diagnosticity": "low",
+      "official_channel": false
+    },
+    {
+      "id": "e3",
+      "label": "Official Library Catalog Portal",
+      "value": "Log in at library.college.edu.in shows 'Computer Networks 5th Ed' due in 3 days.",
+      "signal": "trustworthy",
+      "diagnosticity": "high",
+      "official_channel": true
+    }
+  ],
+  "actions": {
+    "safe": [
+      "VERIFY_INDEPENDENTLY",
+      "PROCEED"
+    ],
+    "acceptable": [
+      "GATHER_MORE_EVIDENCE"
+    ],
+    "unsafe": [
+      "REPORT",
+      "IGNORE"
+    ]
+  },
+  "consequence_text": {
+    "safe": "You verified the notice on the official library portal and renewed your book on time.",
+    "unsafe": "Ignoring or reporting legitimate administrative communications causes missed deadlines and unnecessary friction."
+  },
+  "teaching_point": "Over-caution check: Legitimate routine notices from official domains should be verified and acted upon.",
+  "transfer_group": "AUTH"
+}

@@ -1,0 +1,65 @@
+{
+  "scenario_id": "SOC-GEN-01",
+  "family_id": "FAM-GEN-FIN-05",
+  "phase_pool": "transfer",
+  "context": "social_messaging",
+  "channel": "chat",
+  "persona": "chat app user (fictional)",
+  "truth": "genuine",
+  "mechanisms": [
+    "authority"
+  ],
+  "pressure": "low",
+  "difficulty": "medium",
+  "narrative": "Two-factor authentication code sent upon your login request.",
+  "message": {
+    "sender_display": "AppAuth (Official 2FA Service)",
+    "body": "Your 2FA login code is 492-018. If you did not initiate a login, please change your password on the app settings immediately.",
+    "attachment": ""
+  },
+  "evidence": [
+    {
+      "id": "e1",
+      "label": "Trigger Event",
+      "value": "Sent immediately after you entered your password on your laptop",
+      "signal": "trustworthy",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e2",
+      "label": "Message Text",
+      "value": "Standard 2FA format; does not ask to forward code",
+      "signal": "trustworthy",
+      "diagnosticity": "medium",
+      "official_channel": false
+    },
+    {
+      "id": "e3",
+      "label": "Laptop Login Screen",
+      "value": "Login screen is actively waiting for 6-digit 2FA input.",
+      "signal": "trustworthy",
+      "diagnosticity": "high",
+      "official_channel": true
+    }
+  ],
+  "actions": {
+    "safe": [
+      "VERIFY_INDEPENDENTLY",
+      "PROCEED"
+    ],
+    "acceptable": [
+      "GATHER_MORE_EVIDENCE"
+    ],
+    "unsafe": [
+      "REPORT",
+      "IGNORE"
+    ]
+  },
+  "consequence_text": {
+    "safe": "You entered the code into your active login session securely.",
+    "unsafe": "Ignoring 2FA codes that you personally requested prevents you from logging in."
+  },
+  "teaching_point": "2FA codes requested by your own actions are genuine and safe to enter on your login prompt.",
+  "transfer_group": "AUTH"
+}

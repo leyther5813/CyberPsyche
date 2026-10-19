@@ -1,0 +1,74 @@
+{
+  "scenario_id": "EDU-URG-MAL-01",
+  "family_id": "FAM-URG-FIN-04",
+  "phase_pool": "transfer",
+  "context": "education_career",
+  "channel": "email",
+  "persona": "student applicant (fictional)",
+  "truth": "malicious",
+  "mechanisms": [
+    "urgency"
+  ],
+  "pressure": "high",
+  "difficulty": "high",
+  "narrative": "Email warning that your exam hall ticket will be revoked.",
+  "message": {
+    "sender_display": "Exam Cell <halltickets@exam-board-online.org>",
+    "body": "URGENT: Discrepancy found in your admit card photo. Upload corrected photo at http://admitcard-fix-portal.org within 20 minutes or hall ticket will be cancelled.",
+    "attachment": ""
+  },
+  "evidence": [
+    {
+      "id": "e1",
+      "label": "Sender Domain",
+      "value": "exam-board-online.org",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e2",
+      "label": "URL Domain",
+      "value": "http://admitcard-fix-portal.org",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e3",
+      "label": "Exam Name",
+      "value": "National Entrance Exam 2026",
+      "signal": "trustworthy",
+      "diagnosticity": "low",
+      "official_channel": false
+    },
+    {
+      "id": "e4",
+      "label": "Official Examination Controller Portal",
+      "value": "Admit card status shows Valid & Verified; no photo correction notice listed.",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": true
+    }
+  ],
+  "actions": {
+    "safe": [
+      "VERIFY_INDEPENDENTLY",
+      "REPORT",
+      "IGNORE"
+    ],
+    "acceptable": [
+      "GATHER_MORE_EVIDENCE"
+    ],
+    "unsafe": [
+      "PROCEED",
+      "REPLY_TO_SENDER"
+    ]
+  },
+  "consequence_text": {
+    "safe": "You verified your hall ticket on the official exam portal and confirmed it was valid.",
+    "unsafe": "Submitting details on lookalike portals compromises your personal credentials."
+  },
+  "teaching_point": "Transfer strategy: Apply verification strategies across academic and exam portals when faced with urgent revocation threats.",
+  "transfer_group": "URG"
+}

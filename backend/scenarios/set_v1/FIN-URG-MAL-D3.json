@@ -1,0 +1,74 @@
+{
+  "scenario_id": "FIN-URG-MAL-D3",
+  "family_id": "FAM-URG-FIN-04",
+  "phase_pool": "delayed",
+  "context": "finance",
+  "channel": "chat",
+  "persona": "mobile wallet user (fictional)",
+  "truth": "malicious",
+  "mechanisms": [
+    "urgency"
+  ],
+  "pressure": "high",
+  "difficulty": "high",
+  "narrative": "Delayed retest: Mobile wallet compliance suspension threat.",
+  "message": {
+    "sender_display": "WALLET-ALERT (+91-9001122334)",
+    "body": "PayQuick Wallet account access will be TERMINATED at 6 PM due to unverified PAN. Update now at http://payquick-pan-update.com",
+    "attachment": ""
+  },
+  "evidence": [
+    {
+      "id": "e1",
+      "label": "Update URL",
+      "value": "http://payquick-pan-update.com",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e2",
+      "label": "Sender ID",
+      "value": "Unregistered mobile number",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e3",
+      "label": "PAN Terminology",
+      "value": "PAN compliance text",
+      "signal": "trustworthy",
+      "diagnosticity": "low",
+      "official_channel": false
+    },
+    {
+      "id": "e4",
+      "label": "PayQuick App Profile",
+      "value": "Profile settings show PAN status Verified.",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": true
+    }
+  ],
+  "actions": {
+    "safe": [
+      "VERIFY_INDEPENDENTLY",
+      "REPORT",
+      "IGNORE"
+    ],
+    "acceptable": [
+      "GATHER_MORE_EVIDENCE"
+    ],
+    "unsafe": [
+      "PROCEED",
+      "REPLY_TO_SENDER"
+    ]
+  },
+  "consequence_text": {
+    "safe": "You verified PAN compliance inside the official app.",
+    "unsafe": "Submitting PAN details on unencrypted external sites leads to identity theft."
+  },
+  "teaching_point": "Delayed retention: Wallet PAN verification is performed strictly inside the official application.",
+  "transfer_group": "URG"
+}

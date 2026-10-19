@@ -1,0 +1,65 @@
+{
+  "scenario_id": "EDU-AUTH-GEN-D1",
+  "family_id": "FAM-AUTH-EDU-02",
+  "phase_pool": "delayed",
+  "context": "education_career",
+  "channel": "email",
+  "persona": "college student (fictional)",
+  "truth": "genuine",
+  "mechanisms": [
+    "authority"
+  ],
+  "pressure": "low",
+  "difficulty": "low",
+  "narrative": "Delayed retest: Transcript request completion notice.",
+  "message": {
+    "sender_display": "Registrar Office <transcripts@college.edu.in>",
+    "body": "Your requested official academic transcript is ready. Download it directly from your student portal under My Documents.",
+    "attachment": ""
+  },
+  "evidence": [
+    {
+      "id": "e1",
+      "label": "Sender Email",
+      "value": "transcripts@college.edu.in",
+      "signal": "trustworthy",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e2",
+      "label": "Instructions",
+      "value": "Directs to internal student portal (no external links)",
+      "signal": "trustworthy",
+      "diagnosticity": "medium",
+      "official_channel": false
+    },
+    {
+      "id": "e3",
+      "label": "Student Portal Documents Section",
+      "value": "Portal shows transcript PDF available for download.",
+      "signal": "trustworthy",
+      "diagnosticity": "high",
+      "official_channel": true
+    }
+  ],
+  "actions": {
+    "safe": [
+      "VERIFY_INDEPENDENTLY",
+      "PROCEED"
+    ],
+    "acceptable": [
+      "GATHER_MORE_EVIDENCE"
+    ],
+    "unsafe": [
+      "REPORT",
+      "IGNORE"
+    ]
+  },
+  "consequence_text": {
+    "safe": "You downloaded your transcript safely from the official portal.",
+    "unsafe": "Ignoring requested transcript notices causes workflow delays."
+  },
+  "teaching_point": "Delayed retention: Valid requested administrative notifications directing to internal portals are genuine.",
+  "transfer_group": "AUTH"
+}

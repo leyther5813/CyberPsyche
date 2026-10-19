@@ -1,0 +1,76 @@
+{
+  "scenario_id": "FIN-AUTH-URG-MAL-01",
+  "family_id": "FAM-AUTHURG-EDU-01",
+  "phase_pool": "transfer",
+  "context": "finance",
+  "channel": "chat",
+  "persona": "bank customer (fictional)",
+  "truth": "malicious",
+  "mechanisms": [
+    "authority",
+    "urgency"
+  ],
+  "pressure": "high",
+  "difficulty": "medium",
+  "narrative": "WhatsApp text claiming to be Bank Security alerting you of a blocked card.",
+  "message": {
+    "sender_display": "Apex Bank Cyber Support (+91-9876543210)",
+    "body": "ALERT: Suspicious transaction of \u20b924,500 detected on your Apex Credit Card. Card will be permanently blocked in 15 minutes unless you share the security verification code sent to your phone.",
+    "attachment": ""
+  },
+  "evidence": [
+    {
+      "id": "e1",
+      "label": "Sender Mobile Number",
+      "value": "Personal 10-digit mobile number (+91-9876543210)",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e2",
+      "label": "Request for OTP/Code",
+      "value": "Asks for security verification code via chat",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e3",
+      "label": "Bank Logo Profile Picture",
+      "value": "Displays Apex Bank official crest image",
+      "signal": "trustworthy",
+      "diagnosticity": "low",
+      "official_channel": false
+    },
+    {
+      "id": "e4",
+      "label": "Apex Bank Mobile App Hotline",
+      "value": "App shows card status ACTIVE; security officer states banks never ask for codes over chat.",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": true
+    }
+  ],
+  "actions": {
+    "safe": [
+      "VERIFY_INDEPENDENTLY",
+      "REPORT",
+      "IGNORE"
+    ],
+    "acceptable": [
+      "GATHER_MORE_EVIDENCE",
+      "ASK_TRUSTED_PERSON"
+    ],
+    "unsafe": [
+      "PROCEED",
+      "REPLY_TO_SENDER"
+    ]
+  },
+  "consequence_text": {
+    "safe": "Calling Apex Bank using the number on your credit card confirmed your card was active and no transaction occurred.",
+    "unsafe": "Sharing the code would have authorized an unauthorized financial transfer (simulated)."
+  },
+  "teaching_point": "Transfer strategy: Official institutions will never ask for authentication codes or passwords over messaging apps.",
+  "transfer_group": "AUTH_URG"
+}

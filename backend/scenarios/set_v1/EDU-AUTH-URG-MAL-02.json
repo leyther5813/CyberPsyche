@@ -1,0 +1,76 @@
+{
+  "scenario_id": "EDU-AUTH-URG-MAL-02",
+  "family_id": "FAM-AUTHURG-EDU-01",
+  "phase_pool": "retest",
+  "context": "education_career",
+  "channel": "email",
+  "persona": "college student (fictional)",
+  "truth": "malicious",
+  "mechanisms": [
+    "authority",
+    "urgency"
+  ],
+  "pressure": "high",
+  "difficulty": "medium",
+  "narrative": "Academic Office emails an urgent fee reconciliation alert.",
+  "message": {
+    "sender_display": "Academic Office <office@academic-services-portal.com>",
+    "body": "Final Notice: Your tuition fee receipt is mismatched. Submit the updated verification form within 30 minutes to avoid course deregistration.",
+    "attachment": "Fee_Verification_Form.scr"
+  },
+  "evidence": [
+    {
+      "id": "e1",
+      "label": "Sender Address Domain",
+      "value": "office@academic-services-portal.com",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e2",
+      "label": "Attachment File Type",
+      "value": "Fee_Verification_Form.scr",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e3",
+      "label": "Student ID Mentioned",
+      "value": "Student ID #88421 listed in body",
+      "signal": "trustworthy",
+      "diagnosticity": "low",
+      "official_channel": false
+    },
+    {
+      "id": "e4",
+      "label": "Official University Registrar Portal",
+      "value": "Fee payment status marked Fully Paid on official portal.",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": true
+    }
+  ],
+  "actions": {
+    "safe": [
+      "VERIFY_INDEPENDENTLY",
+      "REPORT",
+      "IGNORE"
+    ],
+    "acceptable": [
+      "GATHER_MORE_EVIDENCE",
+      "ASK_TRUSTED_PERSON"
+    ],
+    "unsafe": [
+      "PROCEED",
+      "REPLY_TO_SENDER"
+    ]
+  },
+  "consequence_text": {
+    "safe": "Checking your official student ledger confirmed your fees were already paid. You avoided opening an untrusted executable.",
+    "unsafe": "Executing the script attachment would have compromised your student account credentials (simulated)."
+  },
+  "teaching_point": "Threats of administrative penalties under tight deadlines are classic high-pressure cues.",
+  "transfer_group": "AUTH_URG"
+}

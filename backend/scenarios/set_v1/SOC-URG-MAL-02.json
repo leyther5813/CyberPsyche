@@ -1,0 +1,74 @@
+{
+  "scenario_id": "SOC-URG-MAL-02",
+  "family_id": "FAM-URG-SOC-09",
+  "phase_pool": "retest",
+  "context": "social_messaging",
+  "channel": "chat",
+  "persona": "chat user (fictional)",
+  "truth": "malicious",
+  "mechanisms": [
+    "urgency"
+  ],
+  "pressure": "high",
+  "difficulty": "medium",
+  "narrative": "Urgent message claiming your social account will be suspended.",
+  "message": {
+    "sender_display": "Account Trust Team (+91-9332211009)",
+    "body": "URGENT: Copyright violation reported on your post. Your account will be DELETED in 15 minutes unless you appeal at http://social-copyright-appeal.net",
+    "attachment": ""
+  },
+  "evidence": [
+    {
+      "id": "e1",
+      "label": "Appeal URL",
+      "value": "http://social-copyright-appeal.net",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e2",
+      "label": "Urgency Period",
+      "value": "15-minute deletion threat",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e3",
+      "label": "Header Logo",
+      "value": "Displays platform trust badge",
+      "signal": "trustworthy",
+      "diagnosticity": "low",
+      "official_channel": false
+    },
+    {
+      "id": "e4",
+      "label": "In-App Support Inbox",
+      "value": "Support inbox shows zero copyright violations or warnings.",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": true
+    }
+  ],
+  "actions": {
+    "safe": [
+      "VERIFY_INDEPENDENTLY",
+      "REPORT",
+      "IGNORE"
+    ],
+    "acceptable": [
+      "GATHER_MORE_EVIDENCE"
+    ],
+    "unsafe": [
+      "PROCEED",
+      "REPLY_TO_SENDER"
+    ]
+  },
+  "consequence_text": {
+    "safe": "Checking your in-app support inbox revealed no copyright notices.",
+    "unsafe": "Entering credentials on fake appeal sites leads to account takeover."
+  },
+  "teaching_point": "Official copyright warnings appear in your account's in-app support center, never via random text messages.",
+  "transfer_group": "URG"
+}

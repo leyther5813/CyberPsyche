@@ -1,0 +1,67 @@
+{
+  "scenario_id": "SOC-REW-URG-AMB-01",
+  "family_id": "FAM-REWURG-AMB-03",
+  "phase_pool": "transfer",
+  "context": "social_messaging",
+  "channel": "chat",
+  "persona": "social media user (fictional)",
+  "truth": "ambiguous",
+  "mechanisms": [
+    "reward_scarcity",
+    "urgency"
+  ],
+  "pressure": "medium",
+  "difficulty": "medium",
+  "narrative": "A messaging group post offers early access ticket passes.",
+  "message": {
+    "sender_display": "Classmate Contact (Forwarded)",
+    "body": "Hey everyone! Campus Music Fest early bird passes are live on this portal for 2 hours only. Limited 50 passes left!",
+    "attachment": ""
+  },
+  "evidence": [
+    {
+      "id": "e1",
+      "label": "Forwarded Tag",
+      "value": "Forwarded message from unknown original sender",
+      "signal": "suspicious",
+      "diagnosticity": "medium",
+      "official_channel": false
+    },
+    {
+      "id": "e2",
+      "label": "Ticket Price",
+      "value": "Standard early bird price (\u20b9500)",
+      "signal": "neutral",
+      "diagnosticity": "low",
+      "official_channel": false
+    },
+    {
+      "id": "e3",
+      "label": "Official Student Union Ticketing Portal",
+      "value": "Official portal lists early bird sales starting tomorrow, not today.",
+      "signal": "hidden",
+      "diagnosticity": "medium",
+      "official_channel": true
+    }
+  ],
+  "actions": {
+    "safe": [
+      "VERIFY_INDEPENDENTLY",
+      "GATHER_MORE_EVIDENCE",
+      "ASK_TRUSTED_PERSON"
+    ],
+    "acceptable": [
+      "UNSURE"
+    ],
+    "unsafe": [
+      "PROCEED",
+      "REPLY_TO_SENDER"
+    ]
+  },
+  "consequence_text": {
+    "safe": "Checking the official union portal revealed the message was an unofficial link.",
+    "unsafe": "Clicking unverified ticket links in chat groups can lead to credential phishing."
+  },
+  "teaching_point": "Forwarded scarcity offers in chat channels should be cross-referenced with official ticket portals.",
+  "transfer_group": "REW_URG"
+}

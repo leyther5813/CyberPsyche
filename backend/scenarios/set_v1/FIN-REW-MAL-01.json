@@ -1,0 +1,74 @@
+{
+  "scenario_id": "FIN-REW-MAL-01",
+  "family_id": "FAM-REW-SOC-06",
+  "phase_pool": "transfer",
+  "context": "finance",
+  "channel": "email",
+  "persona": "banking customer (fictional)",
+  "truth": "malicious",
+  "mechanisms": [
+    "reward_scarcity"
+  ],
+  "pressure": "medium",
+  "difficulty": "medium",
+  "narrative": "An email claims you received an unexpected cashback reward.",
+  "message": {
+    "sender_display": "PayQuick Rewards <rewards@payquick-cashback-claim.net>",
+    "body": "You have an unclaimed cashback reward of \u20b91,450 from your recent UPI transactions. Click below to enter your bank details and claim before link expires.",
+    "attachment": ""
+  },
+  "evidence": [
+    {
+      "id": "e1",
+      "label": "Sender Address Domain",
+      "value": "payquick-cashback-claim.net",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e2",
+      "label": "Request for Banking Details",
+      "value": "Asks for account number and PIN to claim reward",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e3",
+      "label": "Brand Logo",
+      "value": "PayQuick corporate logo in header",
+      "signal": "trustworthy",
+      "diagnosticity": "low",
+      "official_channel": false
+    },
+    {
+      "id": "e4",
+      "label": "PayQuick Official App Rewards Tab",
+      "value": "App shows \u20b90 pending rewards; legitimate cashbacks are credited automatically without requesting details.",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": true
+    }
+  ],
+  "actions": {
+    "safe": [
+      "VERIFY_INDEPENDENTLY",
+      "REPORT",
+      "IGNORE"
+    ],
+    "acceptable": [
+      "GATHER_MORE_EVIDENCE"
+    ],
+    "unsafe": [
+      "PROCEED",
+      "REPLY_TO_SENDER"
+    ]
+  },
+  "consequence_text": {
+    "safe": "You checked your official banking app and confirmed no cashback claim was required.",
+    "unsafe": "Entering bank details for fake cashback rewards grants full access to account funds."
+  },
+  "teaching_point": "Transfer strategy: Real financial rewards do not require entering secret banking details on external sites.",
+  "transfer_group": "REW"
+}

@@ -1,0 +1,66 @@
+{
+  "scenario_id": "SOC-AMB-01",
+  "family_id": "FAM-AMB-FIN-08",
+  "phase_pool": "transfer",
+  "context": "social_messaging",
+  "channel": "chat",
+  "persona": "messaging user (fictional)",
+  "truth": "ambiguous",
+  "mechanisms": [
+    "authority"
+  ],
+  "pressure": "low",
+  "difficulty": "medium",
+  "narrative": "Chat message from a local delivery agent requesting address confirmation.",
+  "message": {
+    "sender_display": "Courier Logistics (+91-9554433221)",
+    "body": "Hello, we have a parcel for your address but street number is unclear. Confirm address on courier-tracking-portal.com or reply here.",
+    "attachment": ""
+  },
+  "evidence": [
+    {
+      "id": "e1",
+      "label": "Sender Contact",
+      "value": "Delivery agent number",
+      "signal": "neutral",
+      "diagnosticity": "medium",
+      "official_channel": false
+    },
+    {
+      "id": "e2",
+      "label": "Parcel Tracking ID",
+      "value": "Tracking ID #CR-8812 listed",
+      "signal": "neutral",
+      "diagnosticity": "low",
+      "official_channel": false
+    },
+    {
+      "id": "e3",
+      "label": "E-Commerce App Orders Page",
+      "value": "App shows an item out for delivery today, but courier partner name is unlisted.",
+      "signal": "hidden",
+      "diagnosticity": "medium",
+      "official_channel": true
+    }
+  ],
+  "actions": {
+    "safe": [
+      "VERIFY_INDEPENDENTLY",
+      "GATHER_MORE_EVIDENCE",
+      "ASK_TRUSTED_PERSON"
+    ],
+    "acceptable": [
+      "UNSURE"
+    ],
+    "unsafe": [
+      "PROCEED",
+      "REPLY_TO_SENDER"
+    ]
+  },
+  "consequence_text": {
+    "safe": "You cross-referenced your e-commerce order page before providing address updates.",
+    "unsafe": "Responding blindly to delivery queries can leak home address details to unauthorized entities."
+  },
+  "teaching_point": "Verify parcel tracking against your main shopping account before sharing details.",
+  "transfer_group": "AUTH"
+}

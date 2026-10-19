@@ -1,0 +1,65 @@
+{
+  "scenario_id": "EDU-GEN-03",
+  "family_id": "FAM-GEN-FIN-10",
+  "phase_pool": "transfer",
+  "context": "education_career",
+  "channel": "email",
+  "persona": "student (fictional)",
+  "truth": "genuine",
+  "mechanisms": [
+    "authority"
+  ],
+  "pressure": "low",
+  "difficulty": "low",
+  "narrative": "Campus IT notice regarding scheduled weekend maintenance.",
+  "message": {
+    "sender_display": "Campus IT Helpdesk <helpdesk@college.edu.in>",
+    "body": "Scheduled Maintenance: Wi-Fi services will undergo maintenance on Saturday from 2 AM to 5 AM. No action is required from users.",
+    "attachment": ""
+  },
+  "evidence": [
+    {
+      "id": "e1",
+      "label": "Sender Domain",
+      "value": "college.edu.in",
+      "signal": "trustworthy",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e2",
+      "label": "Message Type",
+      "value": "Informational notice; asks for no credentials or clicks",
+      "signal": "trustworthy",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e3",
+      "label": "Campus IT Announcement Portal",
+      "value": "Portal lists scheduled maintenance window for Saturday.",
+      "signal": "trustworthy",
+      "diagnosticity": "high",
+      "official_channel": true
+    }
+  ],
+  "actions": {
+    "safe": [
+      "VERIFY_INDEPENDENTLY",
+      "PROCEED"
+    ],
+    "acceptable": [
+      "GATHER_MORE_EVIDENCE"
+    ],
+    "unsafe": [
+      "REPORT",
+      "IGNORE"
+    ]
+  },
+  "consequence_text": {
+    "safe": "You verified the IT announcement on the college portal.",
+    "unsafe": "Reporting routine maintenance notices creates unnecessary helpdesk clutter."
+  },
+  "teaching_point": "System maintenance notices that require no action are authentic.",
+  "transfer_group": "AUTH"
+}

@@ -1,0 +1,75 @@
+{
+  "scenario_id": "SOC-REW-MAL-D3",
+  "family_id": "FAM-REW-SOC-06",
+  "phase_pool": "delayed",
+  "context": "social_messaging",
+  "channel": "chat",
+  "persona": "messaging user (fictional)",
+  "truth": "malicious",
+  "mechanisms": [
+    "reward_scarcity"
+  ],
+  "pressure": "medium",
+  "difficulty": "medium",
+  "narrative": "Delayed retest: Hacked contact sending free smartphone giveaway link.",
+  "message": {
+    "sender_display": "Ananya (Friend)",
+    "body": "Hey!! TechBrand is giving free smartphones for trial testing! Claim yours before stock runs out: http://techbrand-trial-giveaway.net",
+    "attachment": ""
+  },
+  "evidence": [
+    {
+      "id": "e1",
+      "label": "Giveaway Link",
+      "value": "http://techbrand-trial-giveaway.net",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e2",
+      "label": "Request for Shipping Fee",
+      "value": "Asks for \u20b9199 processing fee via credit card",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": false
+    },
+    {
+      "id": "e3",
+      "label": "Friend Profile",
+      "value": "Friend contact name",
+      "signal": "trustworthy",
+      "diagnosticity": "low",
+      "official_channel": false
+    },
+    {
+      "id": "e4",
+      "label": "TechBrand Official Website",
+      "value": "Official website warns of fake trial giveaway link.",
+      "signal": "suspicious",
+      "diagnosticity": "high",
+      "official_channel": true
+    }
+  ],
+  "actions": {
+    "safe": [
+      "VERIFY_INDEPENDENTLY",
+      "REPORT",
+      "IGNORE"
+    ],
+    "acceptable": [
+      "GATHER_MORE_EVIDENCE",
+      "ASK_TRUSTED_PERSON"
+    ],
+    "unsafe": [
+      "PROCEED",
+      "REPLY_TO_SENDER"
+    ]
+  },
+  "consequence_text": {
+    "safe": "You checked the official brand site and confirmed the trial giveaway was a scam.",
+    "unsafe": "Paying processing fees for fake smartphone giveaways leads to financial loss."
+  },
+  "teaching_point": "Delayed retention: Free gadget giveaways requiring processing fees are phishing scams.",
+  "transfer_group": "REW"
+}
