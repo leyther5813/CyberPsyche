@@ -97,39 +97,129 @@ def test_evidence_gating_integrity_and_edge_cases(client):
     }, headers=headers1)
     assert post_dec_ev.status_code == 400
 
+
 def test_deterministic_family_ordering(client):
-    """Verifies Defect 2 Fix for Deterministic Family Ordering."""
+    """Verify deterministic family selection across both forms and all phases."""
     user_email = "deterministic_order@example.com"
     user_pass = "Password123!"
-    reg = client.post("/api/v1/auth/register", json={"email": user_email, "password": user_pass}).json()
-    token = reg["access_token"]
+    reg = client.post(
+        "/api/v1/auth/register",
+        json={"email": user_email, "password": user_pass},
+    )
+    assert reg.status_code == 200
+    token = reg.json()["access_token"]
     headers = {"Authorization": f"Bearer {token}"}
-    client.post("/api/v1/consent", json={"accepted": True}, headers=headers)
 
-    # Form_A session
-    sess_a = client.post("/api/v1/sessions", json={"arm": "targeted", "form_assignment": "Form_A"}, headers=headers).json()
-    sess_a_id = sess_a["session_id"]
+    consent = client.post(
+        "/api/v1/consent",
+        json={"accepted": True},
+        headers=headers,
+    )
+    assert consent.status_code in (200, 201)
 
-    # Form_B session
-    sess_b = client.post("/api/v1/sessions", json={"arm": "targeted", "form_assignment": "Form_B"}, headers=headers).json()
-    sess_b_id = sess_b["session_id"]
+    sessions = {}
+    for form in ("Form_A", "Form_B"):
+        response = client.post(
+            "/api/v1/sessions",
+            json={"arm": "targeted", "form_assignment": form},
+            headers=headers,
+        )
+        assert response.status_code in (200, 201), response.text
+        sessions[form] = response.json()["session_id"]
 
+    phases = ("baseline", "retest", "transfer")
     db = SessionLocal()
-    try:
-        # Check Form_A baseline scenario family order
-        ss_a = db.query(SessionScenario).filter(SessionScenario.session_id == sess_a_id, SessionScenario.phase == "baseline").order_by(SessionScenario.order_idx).all()
-        a_fams = [db.query(Scenario).filter(Scenario.id == item.scenario_id).first().family_id for item in ss_a]
-        
-        # Check Form_B baseline scenario family order
-        ss_b = db.query(SessionScenario).filter(SessionScenario.session_id == sess_b_id, SessionScenario.phase == "baseline").order_by(SessionScenario.order_idx).all()
-        b_fams = [db.query(Scenario).filter(Scenario.id == item.scenario_id).first().family_id for item in ss_b]
 
-        # Verify families are sorted deterministically
-        assert len(a_fams) == 6
-        assert len(b_fams) == 6
-        assert a_fams == sorted(a_fams)
+    try:
+        scenarios_by_form_phase = {}
+
+        for form, session_id in sessions.items():
+            for phase in phases:
+                rows = (
+                    db.query(SessionScenario)
+                    .filter(
+                        SessionScenario.session_id == session_id,
+                        SessionScenario.phase == phase,
+                    )
+                    .order_by(SessionScenario.order_idx)
+                    .all()
+                )
+
+                assert len(rows) == 6, f"{form}/{phase} should contain six scenarios"
+                assert len({row.scenario_id for row in rows}) == 6
+
+                scenarios = [
+                    db.query(Scenario)
+                    .filter(Scenario.id == row.scenario_id)
+                    .one()
+                    for row in rows
+                ]
+                families = [scenario.family_id for scenario in scenarios]
+
+                assert families == sorted(families), (
+                    f"{form}/{phase} family order is not deterministic"
+                )
+                assert len(set(families)) == 6
+
+                scenarios_by_form_phase[(form, phase)] = scenarios
+
+            # The same family subset should be used throughout each form.
+            baseline_families = [
+                scenario.family_id
+                for scenario in scenarios_by_form_phase[(form, "baseline")]
+            ]
+            for phase in ("retest", "transfer"):
+                phase_families = [
+                    scenario.family_id
+                    for scenario in scenarios_by_form_phase[(form, phase)]
+                ]
+                assert phase_families == baseline_families, (
+                    f"{form} family assignments differ between baseline and {phase}"
+                )
+
+        # Verify each selected transfer scenario changes context and channel
+        # relative to its matched baseline scenario in the same family.
+        for form in ("Form_A", "Form_B"):
+            baseline_by_family = {
+                scenario.family_id: scenario
+                for scenario in scenarios_by_form_phase[(form, "baseline")]
+            }
+            transfer_by_family = {
+                scenario.family_id: scenario
+                for scenario in scenarios_by_form_phase[(form, "transfer")]
+            }
+
+            assert baseline_by_family.keys() == transfer_by_family.keys()
+
+            for family_id, baseline in baseline_by_family.items():
+                transfer = transfer_by_family[family_id]
+                assert transfer.context != baseline.context, (
+                    f"{form}/{family_id}: transfer context did not change"
+                )
+                assert transfer.channel != baseline.channel, (
+                    f"{form}/{family_id}: transfer channel did not change"
+                )
+
+        # Form A and Form B should each be deterministic. Their selections
+        # may overlap because six families are selected from ten available.
+        assert (
+            [
+                s.family_id
+                for s in scenarios_by_form_phase[("Form_A", "baseline")]
+            ]
+            != []
+        )
+        assert (
+            [
+                s.family_id
+                for s in scenarios_by_form_phase[("Form_B", "baseline")]
+            ]
+            != []
+        )
+
     finally:
         db.close()
+
 
 def test_intervention_phase_enforcement_and_abuse_prevention(client):
     """Verifies Defect 3 Fix for Intervention Phase Enforcement."""

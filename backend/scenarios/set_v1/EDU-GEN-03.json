@@ -3,7 +3,7 @@
   "family_id": "FAM-GEN-FIN-10",
   "phase_pool": "transfer",
   "context": "education_career",
-  "channel": "email",
+  "channel": "chat",
   "persona": "student (fictional)",
   "truth": "genuine",
   "mechanisms": [

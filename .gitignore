@@ -30,3 +30,17 @@ Thumbs.db
 
 # Research exports: review provenance before committing
 analysis/data/*.csv
+
+
+# Local review artifacts and safety copies
+*.safety-copy
+*.pre_decision_validation.bak
+cleanup_quarantine/
+docs/drafts/
+git_accidental_command.txt
+scenario_inventory.csv
+session_service_review.diff
+
+# Local research data and generated reports
+analysis/data/*
+!analysis/data/.gitkeep
